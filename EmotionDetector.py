@@ -12,13 +12,12 @@ from tkinter import messagebox
 from PyDictionary import PyDictionary
 from random import randint
 import tkinter.scrolledtext as st
-
 import pyautogui
 
 my_list = []
 for x in pyautogui.getAllWindows():  
     win_name = (x.title)
-    if win_name == '' or win_name == 'Program Manager' or win_name == 'Microsoft Text Input Application' or win_name == "ZPToolBarParentWnd" or win_name == "ZPTNativeTransferWnd":
+    if win_name == '' or win_name == 'Program Manager' or win_name == 'Microsoft Text Input Application' or win_name == "ZPToolBarParentWnd" or win_name == "ZPTNativeTransferWnd" or win_name == "Settings" or win_name == "ZPTNativeTransferWnd" or win_name == "Word" or win_name == "ZPTNativeTransferWnd" or win_name == "File Explorer" or win_name == "ZPTNativeTransferWnd" or win_name == "PowerPoint":
         continue
     my_list.append(str(x.title.title()))
 
@@ -62,15 +61,9 @@ canvas1.itemconfig(app_label, fill='#6A3892')
 canvas1.itemconfig(app_description, fill='#3F3D3D')
 
     ################################################# Start of game ##################################################
-def callback(input):
-        if input.isdigit():
-            return True
-
-        elif input is "":
-            return True
-
-        else:
-            return False
+def only_numbers(char):
+    return char.isdigit()
+validation = root.register(only_numbers)
 
 delayervalue = 10
     
@@ -373,14 +366,13 @@ clicked = StringVar()
 # initial menu text
 clicked.set('Select Window')
 
+
 # Create Dropdown menu
-interval_label = canvas1.create_text(300, 255, text='POP-UP FREQUENCY', font=('Century Gothic', 8, 'bold'))
+interval_label = canvas1.create_text(300, 255, text='POP-UP FREQUENCY (1-100)', font=('Century Gothic', 8, 'bold'))
 canvas1.itemconfig(interval_label, fill='#6A3892')
-intervalEntry = Entry(canvas1, borderwidth=1, width=11, font=('Century Gothic', 22))
+intervalEntry = Entry(canvas1,validate="key", validatecommand=(validation, '%S'), borderwidth=1, width=11, font=('Century Gothic', 22))
 intervalEntry.insert(0, "(1-100)")
 intervalEntry.place(x=202, y=276)
-reg = root.register(callback)
-intervalEntry.config(validate ="key", validatecommand =(reg, '%P'))
 intervalButton = Button(canvas1, borderwidth=0, image=interval_btn,  command=delay_btn)
 intervalButton.place(x=368, y=275)
 drop = OptionMenu( canvas1 , clicked , *options, command=show)
