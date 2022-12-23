@@ -25,7 +25,7 @@ for x in pyautogui.getAllWindows():
     win_name = x.title
     if win_name == '':
         continue
-    if "Google Chrome" in win_name or "Edge" in win_name or "Opera" in win_name or "Firefox" in win_name or "Browser" in win_name or "Meet" in win_name:
+    if "Google Chrome" in win_name or "Edge" in win_name or "Opera" in win_name or "Firefox" in win_name or "Brave" in win_name or "Meet" in win_name:
         my_list.append(str(x.title.title()))
 
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -218,16 +218,7 @@ def show(selected_win):
 
     # load weights into new model
     emotion_model.load_weights("emotion_model(75).h5")
-    # print("Loaded model from disk")
-
-    # start the webcam feed
-    #cap = cv2.VideoCapture(0)
-
-    # pass here your video path
-    # you may download one from here : https://www.pexels.com/video/three-girls-laughing-5273028/
-    # cap = cv2.VideoCapture(0)
-
-    # wincap = WindowCapture("New Tab - Google Chrome")
+    
     wincap = WindowCapture(selected_win)
 
     def recognizeemtn():
@@ -292,9 +283,6 @@ def show(selected_win):
                 else:
                     numberOfNotSmiling += 1
                     initialize = True
-                    # # font style
-                    # x1, y1 = x+w, y+h
-                    # bc_0.emotion_rect()
 
                 percentageOfEmotion = numberOfHappyFace / countFaces * 100
                 percentageOfNegativeEmtn = numberOfNotSmiling / countFaces * 100
@@ -371,9 +359,9 @@ def show(selected_win):
                             'Return', 'You will now return to the application screen')
             else:
                 noExistenceOfEmtn = 0
-            cv2.imshow("Computer Vision", frame)
+            cv2.imshow("Emotion Analysis", frame)
             cv2.waitKey(1)
-            if cv2.getWindowProperty('Computer Vision', cv2.WND_PROP_VISIBLE) < 1:
+            if cv2.getWindowProperty('Emotion Analysis', cv2.WND_PROP_VISIBLE) < 1:
                 break
         cv2.destroyAllWindows()
 
